@@ -22,7 +22,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	#./configure CFLAGS="$(CFLAGS)" --disable-sqlite3
-	./configure CFLAGS="$(CFLAGS)"
+	./configure CFLAGS="$(CFLAGS)" --disable-gnutls
 	touch configure-stamp
 
 build: build-stamp
