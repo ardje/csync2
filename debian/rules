@@ -21,8 +21,7 @@ endif
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	#./configure CFLAGS="$(CFLAGS)" --disable-sqlite3
-	./configure CFLAGS="$(CFLAGS)" --disable-gnutls
+	LIBGNUTLS_CONFIG="/usr/bin/pkg-config gnutls" ./configure CFLAGS="$(CFLAGS)"
 	touch configure-stamp
 
 build: build-stamp
