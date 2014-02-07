@@ -54,7 +54,7 @@ void cdb_sql(const char *err, const char *fmt, ...) {
 		}
 	} else {
 		csync_debug(2, "SQL: %s\n", sql);
-		csync_db_sql(err,sql);
+		csync_db_sql(err,"%s",sql);
 	}
 	free(sql);
 }
