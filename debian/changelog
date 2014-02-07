@@ -1,3 +1,21 @@
+csync2 (1.34-12-r409) unstable; urgency=low
+
+  * longstanding cert bug fix
+
+ -- Ard van Breemen <ard@telegraafnet.nl>  Fri, 07 Feb 2014 15:30:00 +0100
+
+csync2 (1.34-11-r409) unstable; urgency=low
+
+  * merge upstream http://git.linbit.com/csync2.git gnutls rewrite fixes
+
+ -- Ard van Breemen <ard@telegraafnet.nl>  Fri, 07 Feb 2014 15:11:09 +0100
+
+csync2 (1.34-10-r409) unstable; urgency=low
+
+  * merge upstream http://git.linbit.com/csync2.git gnutls rewrite
+
+ -- Ard van Breemen <ard@telegraafnet.nl>  Fri, 07 Feb 2014 15:08:01 +0100
+
 csync2 (1.34-9-r409) unstable; urgency=low
 
   * fix longstanding bug, %3A suddenly has a meaning for printf.
