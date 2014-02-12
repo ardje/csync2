@@ -1,0 +1,78 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:		csync2db
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop:		0 1 6
+# Short-Description:	csync2 database server
+### END INIT INFO
+
+set -e
+
+# /etc/init.d/csync2: start and stop the csync2 database daemon
+
+test -x /usr/sbin/csync2 || exit 0
+( grep -q ^csdb-socket /etc/csync2.cfg) 2>/dev/null || exit 0
+
+umask 022
+
+CSYNC2_OPTS="-bBA"
+
+if test -f /etc/default/csync2; then
+    . /etc/default/csync2
+fi
+
+
+. /lib/lsb/init-functions
+
+# Are we running from init?
+run_by_init() {
+    ([ "$previous" ] && [ "$runlevel" ]) || [ "$runlevel" = S ]
+}
+
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+
+start_csync2() {
+	start-stop-daemon --start --quiet --oknodo --pidfile /var/run/csync2db.pid --exec /usr/sbin/csync2 \
+		--background --make-pidfile -- $CSYNC2_OPTS
+}
+
+case "$1" in
+  start)
+	log_daemon_msg "Starting csync2 database server" "csync2" || true
+	if start_csync2; then
+	    log_end_msg 0 || true
+	else
+	    log_end_msg 1 || true
+	fi
+	;;
+  stop)
+	log_daemon_msg "Stopping csync2 database server" "csync2" || true
+	if start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/csync2db.pid; then
+	    log_end_msg 0 || true
+	else
+	    log_end_msg 1 || true
+	fi
+	;;
+
+  restart|reload|force-reload)
+	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/csync2db.pid
+	if start_csync2; then
+	    log_end_msg 0 || true
+	else
+	    log_end_msg 1 || true
+	fi
+	;;
+
+  status)
+	status_of_proc -p /var/run/csync2db.pid /usr/sbin/csync2 csync2 && exit 0 || exit $?
+	;;
+
+  *)
+	log_action_msg "Usage: /etc/init.d/csync2db {start|stop|reload|force-reload|restart|try-restart|status}" || true
+	exit 1
+esac
+
+exit 0

@@ -1,3 +1,9 @@
+csync2 (1.34-13-r409) unstable; urgency=low
+
+  * Added init script for database server
+
+ -- Ard van Breemen <ard@telegraafnet.nl>  Wed, 12 Feb 2014 16:59:55 +0100
+
 csync2 (1.34-12-r409) unstable; urgency=low
 
   * longstanding cert bug fix

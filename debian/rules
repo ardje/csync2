@@ -59,6 +59,7 @@ binary-arch: build install
 	dh_installdocs -pcsync2db
 	dh_installman -pcsync2db csync2.1
 	dh_installcron -pcsync2db
+	dh_installinit -pcsync2db
 	dh_link -pcsync2db
 	dh_strip -pcsync2db
 	dh_compress -pcsync2db
